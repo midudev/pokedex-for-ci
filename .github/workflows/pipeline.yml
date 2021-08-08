@@ -92,7 +92,7 @@ jobs:
           wait-on: http://localhost:5000
 
   deploy:
-    needs: [tests, e2e]
+    needs: [test, e2e]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
