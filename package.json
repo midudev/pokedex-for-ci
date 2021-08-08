@@ -4,9 +4,9 @@
   "description": "Full Stack Open",
   "main": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
+    "dev": "webpack-dev-server --open --mode development",
     "start-test": "NODE_ENV=test node app.js",
-    "start-prod": "node app.js",
+    "start": "node app.js",
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
     "build": "webpack --mode production",
