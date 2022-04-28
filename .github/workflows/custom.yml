@@ -1,0 +1,19 @@
+# workflow name
+name: Custom workflow
+
+# it will be execute on push commit in
+on:
+  push:
+    branches:
+      - "development"
+
+#tasks
+jobs:
+  custom_workflow:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: message
+        run: echo "This is a custom workflow "
+      - name: give me the date
+        run: date
+      - run: ls -anol
