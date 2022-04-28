@@ -18,10 +18,11 @@ jobs:
 
       # I will use other action ready - made
       # this will do a checktout
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      # - uses: actions/checkout@v3
+      #   with:
+      #    fetch-depth: 0
       # this intalles node
+      # includes actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
