@@ -32,7 +32,8 @@ jobs:
 
       # intall the dependencies
       - name: Install dependencies
-        run: npm i --no-audit --no-fund --no-optional
+        #run: npm i --no-audit --no-fund --no-optional
+        run: npm ci
 
       # lint code
       - name: Lint
@@ -43,12 +44,12 @@ jobs:
         run: npm run test
 
       # lounch e2e test
-      - name: E2E
-        uses: cypress-io/github-action@v2
-        with:
-          command: npm run test:e2e
-          start: npm run start-test
-          wait-on: http://localhost:5000
+      # - name: E2E
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #     command: npm run test:e2e
+      #     start: npm run start-test
+      #     wait-on: http://localhost:5000
 
       # create a build
       - name: Build
