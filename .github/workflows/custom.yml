@@ -34,12 +34,18 @@ jobs:
       - name: Install dependencies
         run: npm i --no-audit --no-fund --no-optional
 
-      # ling code
+      # lint code
       - name: Lint
         run: npm run eslint
 
+      # launch unit tests
       - name: Test
         run: npm run test
 
+      # lounch e2e test
+      - name: E2E
+        run: npx cypress run
+
+      # create a build
       - name: Build
         run: npm run build
