@@ -15,10 +15,6 @@ jobs:
     steps:
       - name: message
         run: echo "This is a custom workflow "
-      - name: give me the date
-        run: date
-      - name: check_files
-        run: ls -anol
 
       # I will use other action ready - made
       # this will do a checktout
@@ -32,5 +28,10 @@ jobs:
       - run: npm install
       - run: npm test
 
-      - name: check_files2
-        run: ls -anol
+      # intall the dependencies
+      - name: Install dependencies
+        run: npm i
+
+      # ling code
+      - name: Lint
+        run: npm run eslint
