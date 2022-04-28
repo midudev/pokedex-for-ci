@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --open --mode development",
-    "start-test": "NODE_ENV=test node app.js",
+    "start-test": "NODE_ENV=test | node app.js",
+    "start-test:win": "SET NODE_ENV=test && node app.js",
     "start": "node app.js",
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
