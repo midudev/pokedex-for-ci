@@ -4,6 +4,7 @@ name: Custom workflow
 # it will be execute on push commit in
 on:
   push:
+    # this is an array. can includes a few branches
     branches:
       - "development"
 
@@ -16,5 +17,20 @@ jobs:
         run: echo "This is a custom workflow "
       - name: give me the date
         run: date
-      - run: ls -anol
-      - run: echo "It's done"
+      - name: check_files
+        run: ls -anol
+
+      # I will use other action ready - made
+      # this will do a checktout
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # this intalles node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install
+      - run: npm test
+
+      - name: check_files2
+        run: ls -anol
