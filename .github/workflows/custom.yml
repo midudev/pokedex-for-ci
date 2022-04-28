@@ -17,3 +17,4 @@ jobs:
       - name: give me the date
         run: date
       - run: ls -anol
+      - run: echo "It's done"
