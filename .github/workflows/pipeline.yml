@@ -7,6 +7,7 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
+
 jobs:
   avoid_reduncy:
     runs-on: ubuntu-18.04
