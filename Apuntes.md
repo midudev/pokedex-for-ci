@@ -53,3 +53,9 @@ Para hacer un fetch de todos los tags y branches
 - name: Install dependencies
   run: npm Install
 ````
+
+## Diferencias Cypress y Jest
+
+Cypress es utilizado para realizar tests E2E(End to End) los cuales sirven para testear desde la experiencia del usuario simulando un escenario real.
+Por otro lado Jest en este caso es utilizado para realizar pruebas unitarias.
+La importancia de utilizar varios test es que normalmente los test E2E suelen tardar mucho mas para ejecutarse y por lo tanto no debemos abusar de ellos, sin embargo el test unitario es mucho mas rapido comparado con el E2E.
