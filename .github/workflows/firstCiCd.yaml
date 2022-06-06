@@ -12,4 +12,7 @@ jobs:
       - name: Probando Actions
         run: | 
           echo "Hola Mundo"
+      - name: Obteniendo la fecha
+        run: | 
+          date
 
