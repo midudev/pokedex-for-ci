@@ -1,0 +1,23 @@
+name: Despliegue de la aplicación
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deployment:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.15.1
+      - name: Instalando dependencias
+        run: |
+          npm install
+      - name: Linter
+        run: |
+          npm run eslint

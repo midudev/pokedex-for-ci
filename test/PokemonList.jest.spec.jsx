@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom'
 import '@testing-library/jest-dom/extend-expect'
 import PokemonList from '../src/PokemonList'
 
-
 const pokemonList = [{
   url: 'https://pokeapi.co/api/v2/pokemon/1/',
   name: 'bulbasaur',
