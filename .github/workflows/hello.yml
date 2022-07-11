@@ -13,5 +13,5 @@ jobs:
         run: |
           echo "Hola soy Javier!"
       - name: Tell me the Date
-        run: Date
+        run: date
       - run: ls -l
