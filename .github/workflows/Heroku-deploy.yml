@@ -1,0 +1,136 @@
+name: Heroku-deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    # Run jobs for every PR
+    # branches: '*'
+    types: [opened, synchronize]
+
+env:
+  # NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NODE_ENGINE: '14.17.1'
+
+jobs:
+
+  # This is to only deploy the last running workflow, in case there are more than one running at the 
+  # same time.
+  avoid_redundancy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Cancel Previous Redundant Builds
+        uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          access_token: ${{ github.token }}
+
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3.4.1
+        with:
+          cache: 'npm'
+          node-version: "${{env.NODE_ENGINE}}"
+          # registry-url: 'https://npm.pkg.github.com'
+      - name: Install dependencies
+        run: |
+          # npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_PAT}" --userconfig .npmrc
+          npm ci
+      - name: Lint
+        run: npm run eslint
+
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3.4.1
+        with:
+          cache: 'npm'
+          node-version: "${{env.NODE_ENGINE}}"
+          #registry-url: 'https://npm.pkg.github.com'
+      - name: Install dependencies
+        run: |
+          # npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_PAT}" --userconfig .npmrc
+          npm ci
+      - name: Build
+        run: npm run build
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: dist
+          path: dist
+
+  test:
+    needs: [lint, build]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3.4.1
+        with:
+          cache: 'npm'
+          node-version: "${{env.NODE_ENGINE}}"
+          #registry-url: 'https://npm.pkg.github.com'
+      - name: Install dependencies
+        run: |
+          # npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_PAT}" --userconfig .npmrc
+          npm ci
+      - uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+      - name: Test
+        run: npm test
+
+
+  # e2e:
+  #   needs: [lint, build]
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
+  #     # Setup .npmrc file to install packages
+  #     - uses: actions/setup-node@v3.4.1
+  #       with:
+  #         cache: 'npm'
+  #         node-version: "${{env.NODE_ENGINE}}"
+  #         #registry-url: 'https://npm.pkg.github.com'
+  #     - name: Install dependencies
+  #       run: |
+  #         # npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_PAT}" --userconfig .npmrc
+  #         npm ci
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         name: dist
+  #         path: dist
+  #     - name: E2E tests
+  #       uses: cypress-io/github-action@v4.2.0
+  #       with:
+  #         command: npm run test:e2e
+  #         start: npm run start-test
+  #         wait-on: http://localhost:5000
+
+  # deploy:
+  #   needs: [test, e2e]
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Deploy to Heroku
+  #       if: ${{ github.event_name == 'push' }}
+  #       uses: akhileshns/heroku-deploy@v3.12.12
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_app_name: ${{secrets.HEROKU_APP}}
+  #         heroku_email: ${{secrets.HEROKU_API_EMAIL}}
+  #         healthcheck: "https://${{secrets.HEROKU_APP}}.herokuapp.com/health"
+  #         rollbackonhealthcheckfailed: true
+
