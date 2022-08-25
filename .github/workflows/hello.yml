@@ -11,4 +11,8 @@ jobs:
     steps:
       - name: Echo message
         run: |
-          echo "Hola midu!"
+          echo "Hola lucas!"
+      - name: Fecha
+        run: |
+          date
+          ls -l
