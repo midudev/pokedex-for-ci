@@ -4,5 +4,6 @@ module.exports = {
     setupNodeEvents(on, config) {},
     supportFile:false,
     video: false,
+    pageLoadTimeout: 18000
   },
 }
