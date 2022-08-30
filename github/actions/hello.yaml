@@ -1,0 +1,16 @@
+name: Birjinia fea
+
+on:
+  push:
+    branches:
+      -main
+      -InitialWorkflow
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Echo the message
+        run: |
+          echo "Hola birji"
+
