@@ -1,17 +1,17 @@
+# Every github action (workflow) must have a name and an event
+# An event indicates when a workflow must be activated
 name: Say hello
 
+#Event push in main branch
 on:
   push:
     branches:
       - main
 
+#Jobs are tasks that will performs
 jobs:
   hello_world:
     runs-on: ubuntu-18.04
     steps:
       - name: Echo the message
-        run: |
-          echo "Hola midu!"
-      - name: Dime la fecha
-        run: date
-      - run: ls -l
+        run: echo "Hello Luisfuentech!"
