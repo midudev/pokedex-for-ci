@@ -1,6 +1,6 @@
 {
   "name": "fullstackopen-cicd",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Full Stack Open",
   "main": "src/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
     "build": "webpack --mode production",
-    "test:e2e": "npx cypress run"
+    "test:e2e": "npx cypress@9.7.0 run"
   },
   "repository": {
     "type": "git",
