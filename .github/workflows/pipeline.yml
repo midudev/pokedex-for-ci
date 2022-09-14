@@ -1,3 +1,6 @@
+# Every github action (workflow) must have a name and an event
+# An event indicates when a workflow must be activated
+
 name: Deployment Pipeline
 
 on:
@@ -5,6 +8,7 @@ on:
     branches:
       - main
 
+#Jobs are tasks that will performs
 jobs:
   deploy:
     runs-on: ubuntu-18.04
@@ -23,3 +27,9 @@ jobs:
         run: npm run build
       - name: Test
         run: npm test
+      - name: E2E tests
+        uses: cypress-io/github-action@v4
+        with:
+          command: npm run test:e2e
+          start: npm run dev
+          wait-on: http://localhost:8080
