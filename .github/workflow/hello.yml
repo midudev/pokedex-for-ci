@@ -7,7 +7,7 @@ on:
 
 jobs:
   hello_world:
-  runs-on: ubuntu-18.04
+  runs-on: ubuntu-latest
     step:
         - name: Echo the message
           run : echo "Hola Maxi"
