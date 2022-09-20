@@ -1,0 +1,14 @@
+name: Build and test of Workflow
+
+on: [push]
+    Branches: [Prueba_1]
+
+jobs:
+  build:
+    name: Build with Docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Building the image from the Dockerfile
+        uses: ./.github/action-docker

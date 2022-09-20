@@ -1,0 +1,13 @@
+name: Say hello
+
+on:
+  push:
+   branches:
+     - Prueba_1
+
+jobs:
+  hello_world:
+   runs-on: ubuntu-latest
+    step:
+         - name: Echo the message
+           run : echo "Hola Maxi"
