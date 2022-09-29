@@ -8,7 +8,8 @@ jobs:
   hello_world: 
     runs-on: ubuntu-18.04
     steps:
-    - name: Echo message
-      run: | 
-        echo "Hello World!"
+      - run: | 
+          echo "Hello World!"
+      - run: date
+      - run: ls -l
     
