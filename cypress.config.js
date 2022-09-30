@@ -5,6 +5,7 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:5000',
     supportFile: false,
     specPattern: 'cypress/integration/app.cy.js',
-    video: false
+    video: false,
+    screenshotOnRunFailure: false
   }
 })
