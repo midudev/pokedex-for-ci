@@ -18,12 +18,12 @@ jobs:
       with:
         node-version: 16
     - name: Install dependencies
-      run: npm i
+      run: npm ci
     - name: Run linter validation
       run: npm run eslint
-    - name: Cypress.io
-      uses: cypress-io/github-action@v4.2.0
+    - name: Deploy to heroku
+      uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
-          start: npm run start-test
-          command: npm run test:e2e
-          wait-on: http://localhost:5000
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_API_EMAIL}}
