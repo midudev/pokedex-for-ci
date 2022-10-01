@@ -29,3 +29,9 @@ jobs:
           start: npm start
           command: npm run test:e2e
           wait-on: http://localhost:5000
+      - name: Deployment
+      - uses: amondnet/vercel-action@v19
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} 
+          vercel-org-id: ${{ secrets.VERCEL_ID}}  
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
