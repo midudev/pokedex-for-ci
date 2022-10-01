@@ -23,12 +23,12 @@ jobs:
         run: npm run build --no-audit --no-fund --no-optional
       - name: Test
         run: npm test
-      - name: E2E Test 
-        uses: cypress-io/github-action@v4
-        with:
-          start: npm start
-          command: npm run test:e2e
-          wait-on: http://localhost:5000
+      # - name: E2E Test 
+      #   uses: cypress-io/github-action@v4
+      #   with:
+      #     start: npm start
+      #     command: npm run test:e2e
+      #     wait-on: http://localhost:5000
       - name: Deployment
         uses: amondnet/vercel-action@v19
         with:
