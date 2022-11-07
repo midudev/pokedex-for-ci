@@ -1,4 +1,18 @@
+const react = require('eslint-plugin-react');
+const globals = require('globals');
 module.exports = {
+  "files": ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
+  "languageOptions": {
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true,
+      },
+    },
+    "globals": {
+      ...globals.browser,
+    },
+  },
+  // ... others are omitted for brevity
   "env": {
     "browser": true,
     "es6": true,
@@ -17,13 +31,15 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react", "jest"
+    react
   ],
   "rules": {
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
     "indent": [
       "error",
-        2
-      ],
+      2
+    ],
     "linebreak-style": [
       "error",
       "unix"
