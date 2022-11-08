@@ -40,18 +40,4 @@ const App = () => {
 
 export default App
 
-// name: Say hello
-// on:
-//   push:
-//     branches:
-//       - main
-  
-
-// jobs:
-//   hello_world:
-//     runs-on: ubuntu-20.04
-//     steps:
-//       - name: Echo the message
-//         run: | 
-//           echo "Hello world"
 
