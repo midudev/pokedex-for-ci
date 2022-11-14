@@ -1,4 +1,5 @@
 module.exports = {
+  // "lint": "eslint \"**/*.{js,jsx}\"",
   "env": {
     "browser": true,
     "es6": true,
