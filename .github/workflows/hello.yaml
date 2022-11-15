@@ -1,0 +1,16 @@
+# todo workflow debe tener su name
+name: Say hello
+
+# cuando se ejecutará este workflow ? bajo que acción y en que ramas
+on:
+  push:
+    branches:
+      - master
+
+# trabajos por realizar
+jobs:
+  hello_world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo the message
+        run: echo "Hola papi "
