@@ -5,7 +5,7 @@ name: Say hello
 on:
   push:
     branches:
-      - main
+      - github_actions
 
 # trabajos por realizar
 jobs:
