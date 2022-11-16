@@ -27,6 +27,15 @@ jobs:
           command: npm run test:e2e
           start: npm run start-test
           wait-on: http://localhost:3001
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP}} #Must be unique in Heroku
+          heroku_email: ${{secrets.HEROKU_API_EMAIL}}
 
 
 
+#  /c/xampp/htdocs/pokedex-for-ci
+# Token
+#  1eb563e8-40b0-4605-9cd1-20856c453b44
