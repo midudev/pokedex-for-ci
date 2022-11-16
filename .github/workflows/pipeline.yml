@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 14
       - name: Install dependencies --no-audit --no-fund --no-optional
-        run: npm install
+        run: npm ci
       - name: Eslint 
         run: npm run eslint 
       - name: Build
@@ -27,6 +27,6 @@ jobs:
           command: npm run test:e2e
           start: npm run start-test
           wait-on: http://localhost:3001
-          
+
 
 
