@@ -16,6 +16,10 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: yarn
+        run: yarn --no-audit --no-fund --no-optional
       - name: Lint
         run: yarn eslint
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test
