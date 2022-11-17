@@ -10,6 +10,12 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
     steps:
+    # Para cancelar dos build en paralelo
+      - name: Cancel Previous Redundants builds
+        uses: styfle/cancel-workflow-action
+        with:
+          access_token: ${{github.token}} 
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -18,8 +24,8 @@ jobs:
           node-version: 14
       - name: Install dependencies --no-audit --no-fund --no-optional
         run: npm ci
-      - name: Eslint 
-        run: npm run eslint 
+      - name: Eslint
+        run: npm run eslint
       - name: Build
         run: npm run build
       - name: Test
@@ -39,9 +45,6 @@ jobs:
           heroku_email: ${{secrets.HEROKU_API_EMAIL}}
           healthcheck: "https://${{secrets.HEROKU_APP}}.herokuapp.com/health"
           rollbackonhealthcheckfailed: true
-
-
-
 #  /c/xampp/htdocs/pokedex-for-ci
 # Token
 #  1eb563e8-40b0-4605-9cd1-20856c453b44
