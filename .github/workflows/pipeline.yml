@@ -11,7 +11,7 @@ jobs:
   avoid_reduncy:
     runs-on: ubuntu-20.04
     steps:
-      # Para cancelar dos build en paralelo tests d
+      # Para cancelar los build en paralelo 
       - name: Cancel Previous Redundants builds
         uses: styfle/cancel-workflow-action
         with:
