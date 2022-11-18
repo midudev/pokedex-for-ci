@@ -6,7 +6,7 @@ on:
       - github_actions
 
 jobs:
-  deploy:
+  Deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: yarn --no-audit --no-fund --no-optional
+        run: yarn
       - name: Lint
         run: yarn eslint
       - name: Build
