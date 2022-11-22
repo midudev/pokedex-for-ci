@@ -1,10 +1,13 @@
+# todo workflow debe tener su name
 name: Deployment Pipeline
 
+# cuando se ejecutará este workflow ? bajo que acción y en que ramas
 on:
   push:
     branches:
       - github_actions
 
+# trabajos por realizar
 jobs:
   Deploy:
     runs-on: ubuntu-latest
@@ -23,3 +26,9 @@ jobs:
         run: yarn build
       - name: Test
         run: yarn test
+      - name: E2E tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: yarn test:e2e
+          start: yarn start-test
+          wait-on: http://localhost:5000
