@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import axiosMock from 'axios'
@@ -9,18 +12,24 @@ jest.mock('axios')
 
 describe('<App />', () => {
   it('fetches data', async () => {
-    axiosMock.get.mockResolvedValueOnce(
-      {
-        data: {
-          results: [{ url: 'https://pokeapi.co/api/v2/pokemon/1/', name: 'bulbasaur', id: 1 }]
-        }
-      }
-    )
+    axiosMock.get.mockResolvedValueOnce({
+      data: {
+        results: [
+          {
+            url: 'https://pokeapi.co/api/v2/pokemon/1/',
+            name: 'bulbasaur',
+            id: 1,
+          },
+        ],
+      },
+    })
     await act(async () => {
       render(<App />)
     })
     expect(axiosMock.get).toHaveBeenCalledTimes(1)
-    expect(axiosMock.get).toHaveBeenCalledWith('https://pokeapi.co/api/v2/pokemon/?limit=784')
+    expect(axiosMock.get).toHaveBeenCalledWith(
+      'https://pokeapi.co/api/v2/pokemon/?limit=784'
+    )
   })
 
   it('shows LoadingSpinner', async () => {
