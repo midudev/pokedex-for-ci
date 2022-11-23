@@ -4,8 +4,10 @@ name: Deployment Pipeline
 # cuando se ejecutará este workflow ? bajo que acción y en que ramas
 on:
   push:
-    branches:
-      - github_actions
+    branches: [github_actions]
+  pull_request:
+    branches: [github_actions]
+    types: [opened, synchronize]
 
 # trabajos por realizar
 jobs:
