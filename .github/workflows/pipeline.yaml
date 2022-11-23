@@ -1,7 +1,7 @@
 # todo workflow debe tener su name
 name: Deployment Pipeline
 
-# cuando se ejecutará este workflow ? bajo que acción y en que ramas
+# cuando se ejecutará este workflow ? bajo que acción y en que ramas, tambien se pueden agregar PR's
 on:
   push:
     branches: [github_actions]
@@ -35,7 +35,7 @@ jobs:
           start: yarn start-test
           wait-on: http://localhost:5000
       - name: Deploy To Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP}}
