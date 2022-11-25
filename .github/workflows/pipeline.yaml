@@ -11,13 +11,17 @@ on:
 
 # trabajos por realizar
 jobs:
-  Deploy:
+  avoid_redundancy:
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{github.token}}
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -28,16 +32,70 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Lint
         run: yarn eslint
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+  test:
+    needs: [lint, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - uses: actions/dowloand-artifact@v2
+        with:
+          name: dist
+          path: dist
       - name: Test
         run: yarn test
+
+  e2e:
+    needs: [lint, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
       - name: E2E tests
         uses: cypress-io/github-action@v2
         with:
           command: yarn test:e2e
           start: yarn start-test
           wait-on: http://localhost:5000
+
+  Deploy:
+    needs: [test, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Deploy To Heroku
         if: ${{github.event_name == 'push'}}
         uses: akhileshns/heroku-deploy@v3.12.12
