@@ -19,6 +19,19 @@ jobs:
         with:
           access_token: ${{github.token}}
 
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          cache: "yarn"
+          node-version: "16"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +40,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
+          cache: "yarn"
           node-version: 14
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -41,6 +55,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
+          cache: "yarn"
           node-version: 14
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -60,6 +75,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
+          cache: "yarn"
           node-version: 14
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -79,6 +95,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
+          cache: "yarn"
           node-version: 14
       - name: Install dependencies
         run: yarn install --frozen-lockfile
