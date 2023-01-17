@@ -1,6 +1,5 @@
 #Tiene un nombre
 name: Say hello
-
 #Tiene un evento para activarse, se coloca la rama
 on:
   push:
@@ -11,7 +10,6 @@ on:
 jobs:
   hello_world:
     runs-on: ubuntu-18.04   #Sistema operativo donde va a funcionar
-
     #Pasos que va a realizar
     #Debemos manejar bien las tabulaciones
     steps:
