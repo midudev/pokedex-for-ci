@@ -8,6 +8,8 @@ jobs:
   hello_world:
     runs-on: ubuntu-18.04
     steps:
-      - name: Prueba
+      - name: Prueba 1
         run: |
-          echo "Hola Isaac2!"
+          free -h && nproc
+      - name: prueba2
+        run: apt update && apt install curl -y && curl ifconfig.me
