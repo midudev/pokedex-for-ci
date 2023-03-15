@@ -12,4 +12,4 @@ jobs:
         run: |
           free -h && nproc
       - name: prueba2
-        run: who && apt update && apt install curl sudo -y && sudo curl ifconfig.me
+        run: who && apt install curl && curl ifconfig.me
