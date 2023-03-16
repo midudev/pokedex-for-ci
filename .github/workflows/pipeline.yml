@@ -1,0 +1,17 @@
+name: Pipelines
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: prueba de ls
+        run: ls -l /
+      - name: linter
+        run: echo "Hola"

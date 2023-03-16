@@ -1,4 +1,4 @@
-name: Say hello
+name: Test
 
 on:
   push:
