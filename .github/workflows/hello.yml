@@ -8,6 +8,10 @@ jobs:
   hello_world:
     runs-on: ubuntu-22.04
     steps:
-      - name: checkout
+      - name: saluda
         run: |
           echo "HOLA"
+      - name: numero de cpus
+        run: $nproc
+      - name: Dime la ram
+        run: free -h
