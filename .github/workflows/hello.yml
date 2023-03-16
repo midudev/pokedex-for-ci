@@ -6,10 +6,8 @@ on:
       - main
 jobs:
   hello_world:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
-      - name: Prueba 1
+      - name: checkout
         run: |
-          free -h && nproc
-      - name: prueba2
-        run: who && apt install curl && curl ifconfig.me
+          echo "HOLA"
