@@ -15,3 +15,5 @@ jobs:
         run: $nproc
       - name: Dime la ram
         run: free -h
+      - name: dime todo
+        run: lshw
