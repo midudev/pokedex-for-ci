@@ -12,6 +12,6 @@ jobs:
         with:
           fetch-depth: 0
       - name: prueba de ls
-        run: ls -l /
+        run: ls -l
       - name: linter
         run: echo "Hola"
