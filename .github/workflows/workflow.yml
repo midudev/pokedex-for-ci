@@ -1,14 +1,14 @@
 name: Deploy
 
 on:
-  # issue_comment:
-  #   types: [created]
-  push:
-    branches:
-      - main
+   issue_comment:
+     types: [created]
+#  push:
+#    branches:
+#      - main
 jobs:
   Deployment:
-    # if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deploy_test'}}
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deploy_test'}}
     # concurrency:
     #   group: ${{ github.ref }}
     #   cancel-in-progress: true
@@ -31,11 +31,11 @@ jobs:
           END
           chmod 700 ~/.ssh
           cat ~/.ssh/config
-#       - name: Checkout Pull Request ${{ github.event.issue.pull_request.title }}
-      - name: Checkout Pull Request
+      - name: Checkout Pull Request ${{ github.event.issue.pull_request.title }}
+#      - name: Checkout Pull Request
         uses: actions/checkout@v3
         with:
-          # ref: "refs/pull/${{ github.event.issue.number }}/head"
+          ref: "refs/pull/${{ github.event.issue.number }}/head"
           path: "PR"
       - name: Copy Pull Request to ${{ vars.SSH_ODOO_HOST }}
         run: |
