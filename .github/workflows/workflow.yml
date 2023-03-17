@@ -39,7 +39,7 @@ jobs:
         with:
           # ref: "refs/pull/${{ github.event.issue.number }}/head"
           path: "addons-custom"
-      - name: Move addons-custom
+      - name: Move addons-custom ${{ vars.ODOO_HOST }}
         env:
           prueba: ${{ env.ODOO_HOST }}
         run: |
