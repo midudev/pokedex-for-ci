@@ -42,4 +42,4 @@ jobs:
           ssh odoo_remote 'rm -rf ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
           rsync -aq PR/ odoo_remote:${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom
           ssh odoo_remote 'ls -l ${{ vars.ODOO_PATH_DEV_ADDONS }}'
-          ssh odoo_remote 'ls -l ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
+          ssh odoo_remote 'ls -la ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
