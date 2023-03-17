@@ -19,4 +19,4 @@ jobs:
           # ref: "refs/pull/${{ github.event.issue.number }}/head"
           fetch-depth: 1
           path: "PR"
-      - run: pwd && ls -la PR
+      - run: pwd && ls -l PR
