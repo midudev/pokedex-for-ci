@@ -45,13 +45,13 @@ jobs:
         run: |
           ssh odoo_remote "sudo su -c \"systemctl stop ${{ vars.ODOO_SERVICE_DEV }}\""
           ssh odoo_remote "[[ -f ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/odoo.py ]] && ODOO_BIN='odoo.py' || ODOO_BIN='odoo-bin'; \
-            echo ${ODOO_BIN}
-            ${{ vars.ODOO_PATH_DEV_PYTHON }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
-            --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
-            --stop-after-init \
-            --log-level=info \
-            --no-xmlrpc \
-            --i18n-overwrite \
-            --database DEV \
-            --update 2"
+            echo ${ODOO_BIN}"
+#            ${{ vars.ODOO_PATH_DEV_PYTHON }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
+#            --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
+#            --stop-after-init \
+#            --log-level=info \
+#            --no-xmlrpc \
+#            --i18n-overwrite \
+#            --database DEV \
+#            --update 2"
 #          ssh odoo_remote "sudo su -c \"systemctl start ${{ vars.ODOO_SERVICE_DEV }}\""
