@@ -30,7 +30,7 @@ jobs:
             StrictHostKeyChecking no
           END
           chmod 700 ~/.ssh
-          echo ~/.ssh/config
+          cat ~/.ssh/config
       # - name: Checkout Pull Request ${{ github.event.issue.pull_request.title }}
       - name: Checkout Pull Request
         uses: actions/checkout@v3
@@ -39,7 +39,7 @@ jobs:
           path: "addons-custom"
       - name: Copy addons-custom to ${{ vars.SSH_ODOO_HOST }}
         run: |
-          echo "XX ${{ vars.ODOO_HOST }} ZZ"
+          echo "XX ${{ vars.SSH_ODOO_HOST }} ZZ"
           # ssh odoo_remote 'rm -rf /tmp/addons-custom'
           # rsync -aq addons-custom odoo_remote:/tmp/
           # ssh odoo_remote 'systemctl stop $ODOO_SERVICE_TEST'
