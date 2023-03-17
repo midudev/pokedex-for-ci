@@ -43,7 +43,7 @@ jobs:
         env:
           prueba: ${{ env.ODOO_HOST }}
         run: |
-          echo "XX ${prueba} ZZ"
+          echo "XX $prueba ZZ"
           # ssh odoo_remote 'rm -rf /tmp/addons-custom'
           # rsync -aq addons-custom odoo_remote:/tmp/
           # ssh odoo_remote 'systemctl stop $ODOO_SERVICE_TEST'
