@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types: [opened]
+
+    
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -14,4 +18,6 @@ jobs:
       - name: prueba de ls
         run: ls -la
       - name: linter
-        run: echo "Hola"
+        if: ${{ github.e }}
+        run: ls
+        
