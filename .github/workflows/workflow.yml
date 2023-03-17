@@ -36,11 +36,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           # ref: "refs/pull/${{ github.event.issue.number }}/head"
-          path: "addons-custom"
+          path: "PR"
       - name: Copy addons-custom to ${{ vars.SSH_ODOO_HOST }}
         run: |
-          echo "XX ${{ vars.SSH_ODOO_HOST }} ZZ"
-          # ssh odoo_remote 'rm -rf /tmp/addons-custom'
-          # rsync -aq addons-custom odoo_remote:/tmp/
-          # ssh odoo_remote 'systemctl stop $ODOO_SERVICE_TEST'
-          # ssh odoo_remote 'rm -rf $ODOO_HOST'
+          ssh odoo_remote 'rm -rf ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
+          rsync -aq PR odoo_remote:${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom
+          ssh odoo_remote 'ls -l ${{ vars.ODOO_PATH_DEV_ADDONS }}'
+          ssh odoo_remote 'ls -l ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
