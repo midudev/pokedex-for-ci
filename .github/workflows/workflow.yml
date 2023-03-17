@@ -3,15 +3,11 @@ name: Deploy
 on:
    issue_comment:
      types: [created]
-#  push:
-#    branches:
-#      - main
+   workflow_call:
+    Uses: igallart/pokedex-for-ci/.github/workflows/workflow.yml@refs/heads/main     
 jobs:
-  Deployment:
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deploy_test'}}
-    # concurrency:
-    #   group: ${{ github.ref }}
-    #   cancel-in-progress: true
+  Deployment_test:
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deployment_test'}}
     runs-on: ubuntu-22.04
     steps:
       - name: Create SSH config
@@ -31,8 +27,7 @@ jobs:
           END
           chmod 700 ~/.ssh
           cat ~/.ssh/config
-      - name: Checkout Pull Request ${{ github.event.issue.pull_request.title }}
-#      - name: Checkout Pull Request
+      - name: Checkout Pull Request
         uses: actions/checkout@v3
         with:
           ref: "refs/pull/${{ github.event.issue.number }}/head"
@@ -51,6 +46,6 @@ jobs:
             --log-level=info \
             --no-xmlrpc \
             --i18n-overwrite \
-            --database TEST_ITI \
+            --database DEV \
             --update "$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d '"' '"' | tr -d '"'\n'"')"'
           ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
