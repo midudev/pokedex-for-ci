@@ -4,7 +4,7 @@ on:
      types: [created]
 jobs:
   Deployment_test:
-    uses: igallart/pokedex-for-ci/workflow_bueno.yml@refs/heads/main
+    uses: igallart/pokedex-for-ci/.github/workflows/workflow_bueno.yml@refs/heads/main
     # if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deployment_test'}}
     # runs-on: ubuntu-22.04
     # steps:
