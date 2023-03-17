@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  deploy_test:
+  deployment:
     # if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deploy_test'}}
     # concurrency:
     #   group: ${{ github.ref }}
@@ -44,13 +44,14 @@ jobs:
       - name: Stop Odoo, update modules and start Odoo
         run: |
           ssh odoo_remote 'sudo su -c "systemctl stop ${{ vars.ODOO_SERVICE_DEV }}"'
-          ssh odoo_remote '[[ -f "/opt/odoo140/src/core/odoo.py" ]] && ODOO_BIN="odoo.py" || ODOO_BIN="odoo-bin"; \
-            ${{ vars.ODOO_SERVICE_DEV }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
-            --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
-            --stop-after-init \
-            --log-level=info \
-            --no-xmlrpc \
-            --i18n-overwrite \
-            --database DEV \
-            --update "$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d \' \' | tr -d \'\\n\')"'
-          ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
+          ssh odoo_remote 'ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d \' \' | tr -d \'\\n\''
+#          ssh odoo_remote '[[ -f "/opt/odoo140/src/core/odoo.py" ]] && ODOO_BIN="odoo.py" || ODOO_BIN="odoo-bin"; \
+#            ${{ vars.ODOO_SERVICE_DEV }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
+#            --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
+#            --stop-after-init \
+#            --log-level=info \
+#            --no-xmlrpc \
+#            --i18n-overwrite \
+#            --database DEV \
+#            --update "$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d \' \' | tr -d \'\\n\')"'
+#          ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
