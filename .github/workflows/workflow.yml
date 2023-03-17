@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Remote Workflow
-        uses: igallart/ pokedex-for-ci/.github/workflows/workflow.yml@main
+        uses: igallart/pokedex-for-ci/.github/workflows/workflow.yml@main
