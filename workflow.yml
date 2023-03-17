@@ -1,49 +1,49 @@
 name: Deployment
+
 on:
    issue_comment:
-     types: [created]
+     types: [created]    
 jobs:
   Deployment_test:
-    uses: igallart/pokedex-for-ci/workflow.yml@refs/heads/main
-    # if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deployment_test'}}
-    # runs-on: ubuntu-22.04
-    # steps:
-    #   - name: Create SSH config
-    #     run: |
-    #       mkdir -p ~/.ssh
-    #       echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private_key
-    #       echo "${{ secrets.SSH_GLOBAL_KEY }}" > ~/.ssh/global_key
-    #       chmod 600 ~/.ssh/private_key ~/.ssh/global_key
-    #       cat >>~/.ssh/config <<END
-    #       Host odoo_remote
-    #         HostName ${{ vars.SSH_ODOO_HOST }}
-    #         User ${{ vars.SSH_ODOO_USER }}
-    #         Port ${{ vars.SSH_ODOO_PORT }}
-    #         IdentityFile ~/.ssh/private_key
-    #         IdentityFile ~/.ssh/global_key
-    #         StrictHostKeyChecking no
-    #       END
-    #       chmod 700 ~/.ssh
-    #       cat ~/.ssh/config
-    #   - name: Checkout Pull Request
-    #     uses: actions/checkout@v3
-    #     with:
-    #       ref: "refs/pull/${{ github.event.issue.number }}/head"
-    #       path: "PR"
-    #   - name: Copy Pull Request to ${{ vars.SSH_ODOO_HOST }}
-    #     run: |
-    #       ssh odoo_remote 'rm -rf ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
-    #       rsync -aq PR/ odoo_remote:${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom
-    #   - name: Stop Odoo, update modules and start Odoo
-    #     run: |
-    #       ssh odoo_remote 'sudo su -c "systemctl stop ${{ vars.ODOO_SERVICE_DEV }}"'
-    #       ssh odoo_remote '[[ -f ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/odoo.py ]] && ODOO_BIN="odoo.py" || ODOO_BIN="odoo-bin";\
-    #         ${{ vars.ODOO_PATH_DEV_PYTHON }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
-    #         --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
-    #         --stop-after-init \
-    #         --log-level=info \
-    #         --no-xmlrpc \
-    #         --i18n-overwrite \
-    #         --database DEV \
-    #         --update "$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d '"' '"' | tr -d '"'\n'"')"'
-    #       ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deployment_test'}}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Create SSH config
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private_key
+          echo "${{ secrets.SSH_GLOBAL_KEY }}" > ~/.ssh/global_key
+          chmod 600 ~/.ssh/private_key ~/.ssh/global_key
+          cat >>~/.ssh/config <<END
+          Host odoo_remote
+            HostName ${{ vars.SSH_ODOO_HOST }}
+            User ${{ vars.SSH_ODOO_USER }}
+            Port ${{ vars.SSH_ODOO_PORT }}
+            IdentityFile ~/.ssh/private_key
+            IdentityFile ~/.ssh/global_key
+            StrictHostKeyChecking no
+          END
+          chmod 700 ~/.ssh
+          cat ~/.ssh/config
+      - name: Checkout Pull Request
+        uses: actions/checkout@v3
+        with:
+          ref: "refs/pull/${{ github.event.issue.number }}/head"
+          path: "PR"
+      - name: Copy Pull Request to ${{ vars.SSH_ODOO_HOST }}
+        run: |
+          ssh odoo_remote 'rm -rf ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
+          rsync -aq PR/ odoo_remote:${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom
+      - name: Stop Odoo, update modules and start Odoo
+        run: |
+          ssh odoo_remote 'sudo su -c "systemctl stop ${{ vars.ODOO_SERVICE_DEV }}"'
+          ssh odoo_remote '[[ -f ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/odoo.py ]] && ODOO_BIN="odoo.py" || ODOO_BIN="odoo-bin";\
+            ${{ vars.ODOO_PATH_DEV_PYTHON }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
+            --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
+            --stop-after-init \
+            --log-level=info \
+            --no-xmlrpc \
+            --i18n-overwrite \
+            --database DEV \
+            --update "$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d '"' '"' | tr -d '"'\n'"')"'
+          ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
