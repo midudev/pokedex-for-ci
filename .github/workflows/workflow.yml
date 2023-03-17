@@ -19,4 +19,4 @@ jobs:
       - name: Dime la ram
         run: free -h
       - name: dime todo
-        run: sleep 61
+        run: sleep 62
