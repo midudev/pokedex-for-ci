@@ -45,7 +45,7 @@ jobs:
         run: |
           ssh odoo_remote "sudo su -c \"systemctl stop ${{ vars.ODOO_SERVICE_DEV }}\""
           ssh odoo_remote "[[ -f '/opt/odoo140/src/core/odoo.py' ]] && ODOO_BIN='odoo.py' || ODOO_BIN='odoo-bin'; \
-            ${{ vars.ODOO_SERVICE_DEV }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
+            ${{ vars.ODOO_PATH_DEV_PYTHON }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
             --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
             --stop-after-init \
             --log-level=info \
