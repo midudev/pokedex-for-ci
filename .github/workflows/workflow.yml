@@ -43,7 +43,7 @@ jobs:
           rsync -aq PR/ odoo_remote:${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom
       - name: Stop Odoo, update modules and start Odoo
         run: |
-          ssh odoo_remote 'sudo su && systemctl stop ${{ vars.ODOO_SERVICE_DEV }}'
+          ssh -t odoo_remote 'sudo su && systemctl stop ${{ vars.ODOO_SERVICE_DEV }}'
           [[ -f "/opt/odoo140/src/core/odoo.py" ]] && ODOO_BIN="odoo.py" || ODOO_BIN="odoo-bin"
           ssh odoo_remote '[[ -f "/opt/odoo140/src/core/odoo.py" ]] && ODOO_BIN="odoo.py" || ODOO_BIN="odoo-bin" \
             && ${{ vars.ODOO_SERVICE_DEV }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
@@ -54,4 +54,4 @@ jobs:
             --i18n-overwrite \
             --database DEV
             --update "$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d \' \' | tr -d \'\\n\')"'
-          ssh odoo_remote 'sudo su && systemctl start ${{ vars.ODOO_SERVICE_DEV }}'
+          ssh -t odoo_remote 'sudo su && systemctl start ${{ vars.ODOO_SERVICE_DEV }}'
