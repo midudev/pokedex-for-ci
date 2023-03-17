@@ -7,7 +7,10 @@ on:
 jobs:
   hello_world:
     runs-on: ubuntu-22.04
-    steps:
+    concurrency:
+        group: ${{ github.ref }}
+        cancel-in-progress: true
+    steps:      
       - name: saluda
         run: |
           echo "HOLA"
@@ -16,4 +19,4 @@ jobs:
       - name: Dime la ram
         run: free -h
       - name: dime todo
-        run: lshw
+        run: sleep 61
