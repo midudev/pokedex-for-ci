@@ -39,11 +39,9 @@ jobs:
         with:
           # ref: "refs/pull/${{ github.event.issue.number }}/head"
           path: "addons-custom"
-      - name: Move addons-custom to $STEP_HOST_ODOO
-        env:          
-          STEP_HOST_ODOO: ${{ env.ODOO_HOST }}
+      - name: Move addons-custom to $STEP_HOST_ODOO        
         run: |
-          echo $STEP_HOST_ODOO
+          echo "${{ env.ODOO_HOST }}"
           ssh odoo_remote 'rm -rf /tmp/addons-custom'
           rsync -aq addons-custom odoo_remote:/tmp/
           ssh odoo_remote 'systemctl stop $ODOO_SERVICE_TEST'
