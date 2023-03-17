@@ -16,8 +16,9 @@ jobs:
     steps:
       - name: Create SSH config
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_GLOBAL_KEY: ${{ secrets.SSH_GLOBAL_KEY }}
+          STEP_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          STEP_SSH_GLOBAL_KEY: ${{ secrets.SSH_GLOBAL_KEY }}
+          STEP_HOST_ODOO: ${{ env.ODOO_HOST }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/private_key
@@ -39,9 +40,9 @@ jobs:
         with:
           # ref: "refs/pull/${{ github.event.issue.number }}/head"
           path: "addons-custom"
-      - name: Move addons-custom to $ODOO_HOST
+      - name: Move addons-custom to $STEP_HOST_ODOO
         run: |
-          echo $ODOO_HOST
+          echo $STEP_HOST_ODOO
           ssh odoo_remote 'rm -rf /tmp/addons-custom'
           rsync -aq addons-custom odoo_remote:/tmp/
           ssh odoo_remote 'systemctl stop $ODOO_SERVICE_TEST'
