@@ -54,4 +54,4 @@ jobs:
 #            --i18n-overwrite \
 #            --database DEV \
 #            --update "$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d \' \' | tr -d \'\\n\')"'
-          ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
+#          ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
