@@ -1,22 +1,21 @@
-name: Test
+name: Deploy to TEST
 
 on:
-  push:
+  issue_comment:
+    types: [created]
+  
+   
     branches:
       - main
 jobs:
-  hello_world:
-    runs-on: ubuntu-22.04
+  deploy_test:
     concurrency:
         group: ${{ github.ref }}
         cancel-in-progress: true
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deploy_test'}}
     steps:      
-      - name: saluda
-        run: |
-          echo "HOLA"
-      - name: numero de cpus
-        run: $nproc
-      - name: Dime la ram
-        run: free -h
-      - name: dime todo
-        run: sleep 62
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0    
+      - run: ls -l
