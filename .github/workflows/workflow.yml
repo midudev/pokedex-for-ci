@@ -31,21 +31,21 @@ jobs:
           END
           chmod 700 ~/.ssh
           cat ~/.ssh/config
-      # - name: Checkout Pull Request ${{ github.event.issue.pull_request.title }}
-#      - name: Checkout Pull Request
-#        uses: actions/checkout@v3
-#        with:
-#          # ref: "refs/pull/${{ github.event.issue.number }}/head"
-#          path: "PR"
-#      - name: Copy Pull Request to ${{ vars.SSH_ODOO_HOST }}
-#        run: |
-#          ssh odoo_remote 'rm -rf ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
-#          rsync -aq PR/ odoo_remote:${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom
+#       - name: Checkout Pull Request ${{ github.event.issue.pull_request.title }}
+      - name: Checkout Pull Request
+        uses: actions/checkout@v3
+        with:
+          # ref: "refs/pull/${{ github.event.issue.number }}/head"
+          path: "PR"
+      - name: Copy Pull Request to ${{ vars.SSH_ODOO_HOST }}
+        run: |
+          ssh odoo_remote 'rm -rf ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom'
+          rsync -aq PR/ odoo_remote:${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom
       - name: Stop Odoo, update modules and start Odoo
         run: |
           ssh odoo_remote 'sudo su -c "systemctl stop ${{ vars.ODOO_SERVICE_DEV }}"'
           ssh odoo_remote '[[ -f ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/odoo.py ]] && ODOO_BIN="odoo.py" || ODOO_BIN="odoo-bin"; \
-            ${{ vars.ODOO_PATH_DEV_PYTHON }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/${ODOO_BIN} \
+            ${{ vars.ODOO_PATH_DEV_PYTHON }} ${{ vars.ODOO_PATH_DEV_ADDONS }}/core/\${ODOO_BIN} \
             --config ${{ vars.ODOO_PATH_DEV_CONFIG }} \
             --stop-after-init \
             --log-level=info \
@@ -53,4 +53,4 @@ jobs:
             --i18n-overwrite \
             --database DEV \
             --update "\$(ls -m ${{ vars.ODOO_PATH_DEV_ADDONS }}/addons-custom | tr -d \\' \\' | tr -d \\'\n\\')"'
-#          ssh odoo_remote "sudo su -c \"systemctl start ${{ vars.ODOO_SERVICE_DEV }}\""
+          ssh odoo_remote 'sudo su -c "systemctl start ${{ vars.ODOO_SERVICE_DEV }}"'
