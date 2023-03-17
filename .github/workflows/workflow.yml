@@ -15,33 +15,29 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Create SSH config
-        env:
-          STEP_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          STEP_SSH_GLOBAL_KEY: ${{ secrets.SSH_GLOBAL_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private_key
-          echo "$SSH_GLOBAL_KEY" > ~/.ssh/global_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private_key
+          echo "${{ secrets.SSH_GLOBAL_KEY }}" > ~/.ssh/global_key
           chmod 600 ~/.ssh/private_key ~/.ssh/global_key
           cat >>~/.ssh/config <<END
           Host odoo_remote
-            HostName $ODOO_HOST  
-            User $ODOO_USER
-            Port $ODOO_PORT
+            HostName ${{ vars.SSH_ODOO_HOST }}
+            User ${{ vars.SSH_ODOO_USER }}
+            Port ${{ vars.SSH_ODOO_PORT }}
             IdentityFile ~/.ssh/private_key
             IdentityFile ~/.ssh/global_key
             StrictHostKeyChecking no
           END
           chmod 700 ~/.ssh
+          echo ~/.ssh/config
       # - name: Checkout Pull Request ${{ github.event.issue.pull_request.title }}
       - name: Checkout Pull Request
         uses: actions/checkout@v3
         with:
           # ref: "refs/pull/${{ github.event.issue.number }}/head"
           path: "addons-custom"
-      - name: Move addons-custom ${{ vars.ODOO_HOST }}
-        env:
-          prueba: ${{ env.ODOO_HOST }}
+      - name: Copy addons-custom to ${{ vars.SSH_ODOO_HOST }}
         run: |
           echo "XX ${{ vars.ODOO_HOST }} ZZ"
           # ssh odoo_remote 'rm -rf /tmp/addons-custom'
