@@ -2,20 +2,18 @@ name: Deploy to TEST
 
 on:
   issue_comment:
-    types: [created]
-  
-   
-    branches:
-      - main
+    types: [created]  
 jobs:
   deploy_test:
-    concurrency:
-        group: ${{ github.ref }}
-        cancel-in-progress: true
     runs-on: ubuntu-22.04
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deploy_test'}}
-    steps:      
+    steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0    
-      - run: ls -l
+          ref: "refs/pull/${{ github.event.issue.number }}/head"
+          fetch-depth: 1
+          path: "PR"
+      - run: pwd
