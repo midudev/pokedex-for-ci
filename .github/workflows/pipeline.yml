@@ -1,9 +1,9 @@
 name: Deployment Pipeline
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      [main]
 
 jobs:
   deploy:
@@ -19,5 +19,6 @@ jobs:
         run: npm install
       - name: Lint
         run: npm run eslint
+
       - name: Run tests
         run: npm run test
