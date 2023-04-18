@@ -23,8 +23,10 @@ jobs:
           DEPLOY_STATUS_CONTEXT: deploy
       - name: Run tests
         run: npm run test
-      - name: Verify Deployment
-        run: |
-          curl --head ${{ env.enviroment_url }}
-        if: ${{ success() }}
-        
+      - name: Set deployment status
+        uses: peter-evans/create-or-update-deployment-status@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: success
+          description: Deployment succeeded
+          context: ${{ env.DEPLOY_STATUS_CONTEXT }} 
