@@ -24,7 +24,7 @@ jobs:
       - name: Run tests
         run: npm run test
       - name: Set deployment status
-        uses: peter-evans/create-or-update-deployment-status@v1
+        uses: peter-evans/create-or-update-deployment-status@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: success
