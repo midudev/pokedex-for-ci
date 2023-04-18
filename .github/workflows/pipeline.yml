@@ -19,14 +19,5 @@ jobs:
         run: npm install
       - name: Lint
         run: npm run eslint
-        env:
-          DEPLOY_STATUS_CONTEXT: deploy
       - name: Run tests
         run: npm run test
-      - name: Set deployment status
-        uses: peter-evans/create-or-update-deployment-status@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          state: success
-          description: Deployment succeeded
-          context: ${{ env.DEPLOY_STATUS_CONTEXT }} 
