@@ -1,4 +1,4 @@
-name: Say hello
+name: Di hola
 
 on:
   push:
@@ -6,12 +6,10 @@ on:
       - main
 
 jobs:
-  hello_world:
+  hola:
     runs-on: ubuntu-18.04
     steps:
-      - name: Echo the message
+      - name: Di hola
         run: |
-          echo "Hola midu!"
-      - name: Dime la fecha
-        run: date
-      - run: ls -l
+          echo "Multiline commands can be used with a pipe."
+          echo "El tiempo es $(date)."
