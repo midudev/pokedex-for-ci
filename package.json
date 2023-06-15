@@ -5,12 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --open --mode development",
-    "start-test": "NODE_ENV=test node app.js",
+    "start-test": "node app.js",
     "start": "node app.js",
     "test": "jest",
     "eslint": "eslint \"**/*.{js,jsx}\"",
     "build": "webpack --mode production",
-    "test:e2e": "npx cypress run"
+    "test:e2e": "npx cypress run",
+    "config": "npx cypress open"
   },
   "repository": {
     "type": "git",
