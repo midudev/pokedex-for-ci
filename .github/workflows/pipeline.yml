@@ -19,5 +19,9 @@ jobs:
               run: npm install --no-audit --no-fund --no-optional
             - name: Lint project
               run: npm run eslint
+            - name: Build project
+              run: npm run build
+            - name: Test project
+              run: npm run test
             
             
