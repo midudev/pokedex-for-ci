@@ -13,3 +13,6 @@ jobs:
         run: |
           echo "Multiline commands can be used with a pipe."
           echo "El tiempo es $(date)."
+      - name: Fecha
+        run: date
+      - run: ls -l
