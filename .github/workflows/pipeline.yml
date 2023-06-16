@@ -29,5 +29,11 @@ jobs:
                     command: npm run test:e2e
                     start: npm run start-test
                     wait-on: 'http://localhost:5000'
+            - name: 'Deploy to Netlify'
+              uses: jsmrcaga/action-netlify-deploy@v2.0.0
+              with:
+                NETLIFY_AUTH_TOKEN: ${{ secrets.NETFLIFY_AUTH_TOKEN }}
+                NETLIFY_SITE_ID: ${{ secrets.NETFLIFY_SITE_ID }}
+                NETLIFY_DEPLOY_TO_PROD: true
             
             
