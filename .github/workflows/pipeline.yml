@@ -36,4 +36,5 @@ jobs:
                 NETLIFY_SITE_ID: ${{ secrets.NETFLIFY_SITE_ID }}
                 NETLIFY_DEPLOY_TO_PROD: true
                 deploy_alias: ${{ env.BRANCH_NAME }}
+                build_directory: dist
             
