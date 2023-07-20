@@ -10,5 +10,5 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Echo the message
-      run: |
-        echo "Hola Jose!"
+        run: |
+          echo "Hola Jose!"
