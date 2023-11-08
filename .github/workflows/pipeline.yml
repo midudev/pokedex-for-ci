@@ -16,7 +16,11 @@ jobs:
         with:
           node-version: 18
       - name: install dependencies
-        run: npm install
+        run: npm install --no-fund --no-optional
       - name: Lint
         run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run test
 
