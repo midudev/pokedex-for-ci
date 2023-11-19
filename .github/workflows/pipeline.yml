@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16
       - name: install dependencies
-        run: npm install --no-audit --no-fund --no-optional
+        run: npm ci
       - name: Lint
         run: npm run lint
       - name: Build
