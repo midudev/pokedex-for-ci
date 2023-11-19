@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "cypress": "^13.5.1",
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
