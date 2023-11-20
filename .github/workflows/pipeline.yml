@@ -74,6 +74,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
+          cache: "npm"
           node-version: 16
       - name: install dependencies
         run: npm ci
