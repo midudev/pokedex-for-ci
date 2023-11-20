@@ -9,13 +9,17 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  deploy:
+  avoid_reduncy:
     runs-on: ubuntu-latest
     steps:
       - name: cancel previous redundant builds
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -26,13 +30,60 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: install dependencies
+        run: npm ci
       - name: Build
         run: npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+  test:
+    needs: [build, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: install dependencies
+        run: npm ci
       - name: Test
         run: npm run test
-      - name: E2E
-        uses: cypress-io/github-action@v2
-        with:
-          command: npm run test:e2e
-          start: npm run start-test
-          wait-on: http://localhost:5000
+
+
+    e2e:
+      needs: [build]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - name: install dependencies
+          run: npm ci
+        - uses: actions/download-artifact@v2
+          with:
+            name: dist
+            path: dist
+        - name: E2E
+          uses: cypress-io/github-action@v2
+          with:
+            command: npm run test:e2e
+            start: npm run start-test
+            wait-on: http://localhost:5000
