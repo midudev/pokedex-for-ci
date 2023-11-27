@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   hello_world:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Hello world action step
         run: |
