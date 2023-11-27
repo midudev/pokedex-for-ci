@@ -9,4 +9,5 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Hello world action step
-        run: echo "Hello world!"
+        run: |
+          echo "Hello world!"
