@@ -8,6 +8,6 @@ jobs:
   hello_world:
     runs-on: ubuntu-latest
     steps:
-      - name: Hello world action step
+      - name: Hello world action
         run: |
           echo "Hello world!"
