@@ -11,3 +11,6 @@ jobs:
       - name: Hello world action
         run: |
           echo "Hello world!"
+      - name: Dime la fecha
+        run: date
+      - run: ls -l
