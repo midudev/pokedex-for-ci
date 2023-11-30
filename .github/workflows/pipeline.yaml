@@ -36,7 +36,7 @@ jobs:
         with:
           heroku_api_key: "044e3433-2e77-4f01-91db-52ee9b38f4a2"
           heroku_app_name: "ibrayan-ci-ga"
-          heroku_email: "ibrayan-ci-ga"
+          heroku_email: "br.gatica@duocuc.cl"
 
       
       
