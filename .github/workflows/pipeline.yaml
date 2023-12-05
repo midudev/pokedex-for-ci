@@ -1,0 +1,43 @@
+name:  Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run eslint
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run test
+      - name: E2E Test
+        uses: cypress-io/github-action@v2
+        with: 
+          command: npm run test:e2e
+          start: npm run start-test
+          wait-on: 'http://localhost:8080'
+      - name: Deploy with Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: "${{secrets.HEROKU_API_KEY}}"
+          heroku_app_name: "${{secrets.HEROKU_APP_NAME}}"
+          heroku_email: ${{secrets.HEROKU_API_EMAIL}}
+          healthcheck: "https://${{secrets.HEROKU_APP_NAME}}-c2cc58f8e558.herokuapp.com/health"
+          rollbackonhealthcheckfailed: true
+
+      
+      
