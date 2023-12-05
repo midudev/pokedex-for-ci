@@ -1,4 +1,4 @@
-name:  Deployment Pipeline
+name: Deployment Pipeline
 
 on:
   push:
@@ -6,11 +6,16 @@ on:
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
-      
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
+      - name: Cancel previous build
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+          
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -18,7 +23,7 @@ jobs:
       - name: nodejs
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
       - name: Install dependencies
         run: npm ci
       - name: Lint
@@ -29,16 +34,16 @@ jobs:
         run: npm run test
       - name: E2E Test
         uses: cypress-io/github-action@v2
-        with: 
+        with:
           command: npm run test:e2e
           start: npm run start-test
-          wait-on: 'http://localhost:8080'
+          wait-on: "http://localhost:8080"
       - name: Deploy with Heroku
-        if: ${{ github.event_name == 'push' }}
-        uses: akhileshns/heroku-deploy@v3.12.12 
+        if: ${{ github.event_name == 'push'  }}
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: "${{secrets.HEROKU_API_KEY}}"
           heroku_app_name: "${{secrets.HEROKU_APP_NAME}}"
           heroku_email: ${{secrets.HEROKU_API_EMAIL}}
           healthcheck: "https://${{secrets.HEROKU_APP_NAME}}-c2cc58f8e558.herokuapp.com/health"
-          rollbackonhealthcheckfailed: true 
+          rollbackonhealthcheckfailed: true
