@@ -13,4 +13,5 @@ jobs:
         run: echo "Hello World to me "
       - name: get me the date
         run: date
-      - run: ls
+      - run: ls -l
+      
