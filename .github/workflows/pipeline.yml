@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
 jobs:
   cancel_workflows:
     runs-on: ubuntu-latest
@@ -67,6 +70,7 @@ jobs:
         run: npm run test
   deploy:
     needs: [test]
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
