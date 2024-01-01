@@ -7,7 +7,7 @@ on:
       - main
 jobs:
   hello_word:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: say hello
         run: echo "Hello World to me "
