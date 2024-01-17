@@ -3,7 +3,7 @@ name: Say hello
 on:
   push:
     branches:
-      - main
+      - prueba
 
 jobs:
   hello_world:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Echo the message
         run: |
-          echo "Hola midu!"
+          echo "Hola mundo!"
       - name: Dime la fecha
         run: date
       - run: ls -l
