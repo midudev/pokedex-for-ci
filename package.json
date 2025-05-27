@@ -4,12 +4,12 @@
   "description": "Full Stack Open",
   "main": "src/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open --mode development",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server --open --mode development",
     "start-test": "NODE_ENV=test node app.js",
     "start": "node app.js",
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
-    "build": "webpack --mode production",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode production",
     "test:e2e": "npx cypress run"
   },
   "repository": {
@@ -35,7 +35,9 @@
     "babel-jest": "^25.5.1",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
+    "cypress": "^13.6.0",
     "eslint": "^6.8.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-jest": "^23.11.0",
     "eslint-plugin-react": "^7.19.0",
     "html-loader": "^1.1.0",

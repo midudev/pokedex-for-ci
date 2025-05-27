@@ -19,6 +19,11 @@ module.exports = {
   "plugins": [
     "react", "jest"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "indent": [
       "error",
@@ -46,5 +51,16 @@ module.exports = {
     ],
     "no-console": "warn",
     "react/prop-types": 0
-  }
+  },
+  "overrides": [
+    {
+      "files": ["cypress/**/*.js"],
+      "env": {
+        "cypress/globals": true
+      },
+      "extends": [
+        "plugin:cypress/recommended"
+      ]
+    }
+  ]
 }
