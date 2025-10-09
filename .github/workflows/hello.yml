@@ -1,0 +1,33 @@
+name: Say hello
+
+
+on:
+
+  push:
+    branches:
+      - main
+jobs:
+  hello_world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Lint
+        run: |
+          npm run eslint
+
+      # - name: Run tests
+      #   run: |
+      #     npm test
+
+      # - name: Say Hello
+      #   run: echo "Hello, World!"
