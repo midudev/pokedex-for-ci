@@ -8,3 +8,9 @@ on:
 jobs:
   hello_world: 
     runs-on: ubuntu-18.04
+    steps:
+      - name: Echo the messaage
+        run: 
+          echo "Piketudo"
+      - run: date 
+      - run: ls -l     
